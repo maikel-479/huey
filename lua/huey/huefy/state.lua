@@ -27,6 +27,9 @@ M.gen_w = function()
 end
 
 M.set_hex = function(val)
+  if not val or #val < 2 then
+    return
+  end
   M.new_hex = val:sub(2)
   M.sliders.r, M.sliders.g, M.sliders.b = hex2rgb_ratio(val)
 end
