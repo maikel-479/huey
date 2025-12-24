@@ -51,6 +51,9 @@ M.palettes = function()
     table.insert(blocks, 1, gen_colors(nil, row))
   end
   
+  if #blocks == 0 or #blocks[#blocks] == 0 then
+    return blocks
+  end
   local lastcolor = api.nvim_get_hl(v.paletteNS, { name = blocks[#blocks][1][2] }).bg
   lastcolor = string.format("%06x", lastcolor)
   

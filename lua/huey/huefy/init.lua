@@ -54,7 +54,7 @@ M.open = function()
   
   if win_w - cur_pos[2] < total_w then
     local kekw = win_w - cur_pos[2] - total_w
-    fallback_col = -(cur_pos[1] - kekw)
+    fallback_col = -(cur_pos[2] - kekw)
   end
   
   local left_win_pos = (function()
@@ -110,9 +110,9 @@ M.open = function()
   if border then
     api.nvim_set_hl(v.paletteNS, "FloatBorder", { link = "Comment" })
     api.nvim_set_hl(v.toolsNS, "FloatBorder", { link = "Comment" })
-    api.nvim_set_hl(v.paletteNS, "normal", { link = "normal" })
-    api.nvim_set_hl(v.toolsNS, "normal", { link = "normal" })
-    api.nvim_set_hl(v.inputNS, "normal", { link = "normal" })
+    api.nvim_set_hl(v.paletteNS, "Normal", { link = "Normal" })
+    api.nvim_set_hl(v.toolsNS, "Normal", { link = "Normal" })
+    api.nvim_set_hl(v.inputNS, "Normal", { link = "Normal" })
   else
     api.nvim_set_hl(v.paletteNS, "FloatBorder", { link = "ExDarkBorder" })
     api.nvim_set_hl(v.paletteNS, "Normal", { link = "ExDarkBg" })
@@ -133,6 +133,9 @@ M.open = function()
   volt_events.add { v.palette_buf, v.tools_buf }
   
   vim.fn.prompt_setcallback(input_buf, function(input)
+    if not input or #input < 2 then
+      return
+    end
     v.hex = input:sub(2)
     v.set_hex("#" .. v.hex)
     redraw(v.palette_buf, "all")
@@ -143,6 +146,7 @@ M.open = function()
     bufs = { v.palette_buf, input_buf, v.tools_buf },
     input_buf = input_buf,
     after_close = function()
+      vim.cmd "stopinsert"
       api.nvim_set_current_win(oldwin)
     end,
   }
