@@ -85,8 +85,18 @@ M.open = function()
   require("volt.events").add(v.buf)
   
   vim.fn.prompt_setcallback(input_buf, function(input)
-    v.hex = input:sub(2)
-    v.new_hex = v.hex
+    if not input or input == "" then
+      return
+    end
+    local clean_hex = input
+    if input:sub(1, 1) == "#" then
+      clean_hex = input:sub(2)
+    end
+
+    if not (clean_hex:match("^[0-9a-fA-F]*$") and (#clean_hex == 6 or #clean_hex == 3)) then
+      return
+    end
+    v.new_hex = clean_hex
     redraw(v.buf, { "palettes", "footer" })
   end)
   
