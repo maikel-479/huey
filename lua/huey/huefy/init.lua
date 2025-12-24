@@ -133,11 +133,19 @@ M.open = function()
   volt_events.add { v.palette_buf, v.tools_buf }
   
   vim.fn.prompt_setcallback(input_buf, function(input)
-    if not input or #input < 2 then
+    if not input or input == "" then
       return
     end
-    v.hex = input:sub(2)
-    v.set_hex("#" .. v.hex)
+    local clean_hex = input
+    if input:sub(1, 1) == "#" then
+      clean_hex = input:sub(2)
+    end
+
+    if not (clean_hex:match("^[0-9a-fA-F]*$") and (#clean_hex == 6 or #clean_hex == 3)) then
+      return
+    end
+
+    v.set_hex("#" .. clean_hex)
     redraw(v.palette_buf, "all")
     redraw(v.tools_buf, "all")
   end)
