@@ -20,8 +20,8 @@ v.inputNS = api.nvim_create_namespace "HuefyInput"
 v.toolsNS = api.nvim_create_namespace "HuefyTools"
 
 M.open = function()
-  local oldwin = api.nvim_get_current_win()
   local config = require("huey").config.huefy
+  local oldwin = api.nvim_get_current_win()
   
   local border = config.border
   v.xpad = border and 2 or 1
