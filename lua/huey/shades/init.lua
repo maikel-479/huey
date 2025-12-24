@@ -47,7 +47,7 @@ M.open = function()
     height = h,
     relative = config.position == "cursor" and "cursor" or "editor",
     style = "minimal",
-    border = { "┏", "━", "┓", "┃", "┛", "━", "┗", "┃" },
+    border = config.border and { "┏", "━", "┓", "┃", "┛", "━", "┗", "┃" } or "none",
     title = { { " 󱥚 Color Shades ", "pmenusel" } },
     title_pos = "center",
   })
@@ -60,7 +60,7 @@ M.open = function()
     relative = "win",
     win = win,
     style = "minimal",
-    border = { "┏", "━", "┓", "┃", "┛", "━", "┗", "┃" },
+    border = config.border and { "┏", "━", "┓", "┃", "┛", "━", "┗", "┃" } or "none",
   })
   
   api.nvim_win_set_hl_ns(win, v.ns)
