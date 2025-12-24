@@ -7,13 +7,13 @@ local mark_state = require "volt.state"
 local redraw = require("volt").redraw
 local layout = require "huey.shades.layout"
 local volt = require "volt"
-local config = require("huey").config.shades
 local shadesapi = require "huey.shades.api"
 local map = vim.keymap.set
 
 v.ns = api.nvim_create_namespace "NvShades"
 
 M.open = function()
+  local config = require("huey").config.shades
   local oldwin = api.nvim_get_current_win()
   
   v.hex = utils.hex_on_cursor() or "61afef"
