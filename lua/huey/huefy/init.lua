@@ -74,7 +74,7 @@ M.open = function()
     height = h,
     relative = config.position == "cursor" and "cursor" or "editor",
     style = "minimal",
-    border = "single",
+    border = border and "single" or "none",
     title = { { " 󱥚  Color picker ", border and "lazyh1" or "ExBlack3bg" } },
     title_pos = "center",
   })
@@ -89,7 +89,7 @@ M.open = function()
     relative = "win",
     win = win,
     style = "minimal",
-    border = "single",
+    border = border and "single" or "none",
   })
   
   local tools_win = api.nvim_open_win(v.tools_buf, true, {
@@ -100,7 +100,7 @@ M.open = function()
     relative = "win",
     win = input_win,
     style = "minimal",
-    border = "single",
+    border = border and "single" or "none",
   })
   
   api.nvim_win_set_hl_ns(win, v.paletteNS)
